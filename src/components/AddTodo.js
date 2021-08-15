@@ -1,14 +1,36 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { addTodo } from "../actions";
 
-class AddTodo extends Component {
-  render() {
-    return (
-      <form>
-        <input type="text" placeholder="New Todo" />
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (text) => dispatch(addTodo(text)),
+  };
+};
+
+const AddTodo = ({ onSubmit }) => {
+  let input;
+
+  return (
+    <div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit(input.value);
+          input.value = "";
+        }}
+      >
+        <input
+          type="text"
+          placeholder="New Todo"
+          ref={(node) => {
+            input = node;
+          }}
+        />
         <input type="submit" value="Add" />
       </form>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default AddTodo;
+export default connect(null, mapDispatchToProps)(AddTodo);

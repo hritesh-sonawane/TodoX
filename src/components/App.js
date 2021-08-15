@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-import Filter from "./Filter";
+// import Filter from "./Filter";
 
 class App extends Component {
   render() {
@@ -9,7 +9,6 @@ class App extends Component {
       <div>
         <AddTodo />
         <TodoList />
-        <Filter />
       </div>
     );
   }

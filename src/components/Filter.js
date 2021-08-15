@@ -1,16 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
 
-class Filter extends Component {
-  render() {
-    return (
-      <div>
-        Show:
-        <button>All</button>
-        <button>Active</button>
-        <button>Completed</button>
-      </div>
-    );
-  }
-}
+import { setFilter } from "../actions";
+import { FILTER_COMPLETED } from "../constants/filters";
 
-export default Filter;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeFilter: (filter) => dispatch(setFilter(filter)),
+  };
+};
+
+const Filter = ({ onChangeFilter }) => {
+  return (
+    <div>
+      Show:
+      <button onClick={(e) => onChangeFilter(FILTER_COMPLETED)}>
+        Completed
+      </button>
+    </div>
+  );
+};
+
+export default connect(null, mapDispatchToProps)(Filter);
