@@ -16,18 +16,25 @@ const AddTodo = ({ onSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(input.value);
-          input.value = "";
+          if (input.value.trim()) {
+            onSubmit(input.value);
+            input.value = "";
+          }
         }}
+        className="row"
       >
-        <input
-          type="text"
-          placeholder="New Todo"
-          ref={(node) => {
-            input = node;
-          }}
-        />
-        <input type="submit" value="Add" />
+        <div className="col col-sm-9 padding-right-small">
+          <input
+            type="text"
+            placeholder="New Todo"
+            ref={(node) => {
+              input = node;
+            }}
+          />
+        </div>
+        <div className="col col-sm-3 padding-left-small">
+          <input type="submit" value="Add" className="paper-btn btn-small" />
+        </div>
       </form>
     </div>
   );
