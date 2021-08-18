@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../actions";
+import { v4 as uuidv4 } from "uuid";
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (text) => dispatch(addTodo(text)),
+    onSubmit: (todo) => dispatch(addTodo(todo)),
   };
 };
 
@@ -16,14 +17,19 @@ const AddTodo = ({ onSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          const id = uuidv4();
           if (input.value.trim()) {
-            onSubmit(input.value);
+            onSubmit({
+              id,
+              text: input.value,
+              completed: false,
+            });
             input.value = "";
           }
         }}
         className="row"
       >
-        <div className="col col-sm-9 padding-right-small">
+        <div className="col col-xs-9 padding-right-small">
           <input
             type="text"
             placeholder="New Todo"
@@ -32,7 +38,7 @@ const AddTodo = ({ onSubmit }) => {
             }}
           />
         </div>
-        <div className="col col-sm-3 padding-left-small">
+        <div className="col col-xs-3 padding-left-small">
           <input type="submit" value="Add" className="paper-btn btn-small" />
         </div>
       </form>
