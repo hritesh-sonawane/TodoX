@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { toggleTodo } from "../actions";
 import {
   FILTER_ALL,
   FILTER_COMPLETED,
@@ -28,27 +27,21 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onTodoClick: (id) => dispatch(toggleTodo(id)),
-  };
-};
-
 const List = styled.ul`
   padding-left: 0;
 `;
 
-const TodoList = ({ todos, onTodoClick }) => {
+const TodoList = ({ todos }) => {
   if (todos.length === 0)
     return <div className="row flex-center">Nothing to display.</div>;
 
   return (
     <List className="child-borders child-shadows-hover">
       {todos.map((todo) => (
-        <Todo className="row" key={todo.id} text={todo.text} />
+        <Todo className="row" key={todo.id} {...todo} />
       ))}
     </List>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(mapStateToProps)(TodoList);
