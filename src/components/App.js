@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import styled from "styled-components";
+
 import AddTodo from "./AddTodo";
 import TodoList from "./TodoList";
-import styled from "styled-components";
 
 const Container = styled.div`
   background-color: #f1f1f1;
@@ -14,6 +15,7 @@ const Paper = styled.div`
   background-color: white;
 `;
 
+// Main app structure
 class App extends Component {
   render() {
     return (

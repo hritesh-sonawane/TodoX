@@ -1,7 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
+
+// UUID is a library for generating a unique id
+import { v1 as uuid } from "uuid";
+
 import { addTodo } from "../actions";
-import { v4 as uuidv4 } from "uuid";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -9,6 +12,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// Form component for adding new todo, dispatches addTodo with a todo object
 const AddTodo = ({ onSubmit }) => {
   let input;
 
@@ -17,7 +21,7 @@ const AddTodo = ({ onSubmit }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          const id = uuidv4();
+          const id = uuid();
           if (input.value.trim()) {
             onSubmit({
               id,
@@ -29,7 +33,7 @@ const AddTodo = ({ onSubmit }) => {
         }}
         className="row"
       >
-        <div className="col col-xs-9 padding-right-small">
+        <div className="col padding-right-small">
           <input
             type="text"
             placeholder="New Todo"
@@ -38,7 +42,7 @@ const AddTodo = ({ onSubmit }) => {
             }}
           />
         </div>
-        <div className="col col-xs-3 padding-left-small">
+        <div className="col padding-left-small">
           <input type="submit" value="Add" className="paper-btn btn-small" />
         </div>
       </form>

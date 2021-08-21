@@ -1,8 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
+import styled from "styled-components";
+
 import { toggleTodo } from "../actions";
 
+// Toggle todo completed state
 const mapDispatchToProps = (dispatch) => {
   return {
     onItemClick: (id) => dispatch(toggleTodo(id)),
@@ -11,13 +13,14 @@ const mapDispatchToProps = (dispatch) => {
 
 const Item = styled.li`
   padding-left: 1em;
+  cursor: pointer;
+  overflow-wrap: break-word;
   &:before {
     content: "";
   }
-  cursor: pointer;
-  overflow-wrap: break-word;
 `;
 
+// Individual Todo component, depending on state of completion, styles are applied
 const Todo = ({ id, text, completed, onItemClick }) => {
   return (
     <Item

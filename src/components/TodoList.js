@@ -1,14 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
+
+import Todo from "./Todo";
+import Filter from "./Filter";
 import {
   FILTER_ALL,
   FILTER_COMPLETED,
   FILTER_ACTIVE,
 } from "../constants/filters";
-import Todo from "./Todo";
-import Filter from "./Filter";
-import styled from "styled-components";
 
+// Filter todos based on selected filter
 const filteredTodos = (todos, filter) => {
   switch (filter) {
     case FILTER_ALL:
@@ -22,6 +24,7 @@ const filteredTodos = (todos, filter) => {
   }
 };
 
+// Get todos from state
 const mapStateToProps = (state) => {
   return {
     todos: filteredTodos(state.todos, state.filter),
@@ -33,20 +36,35 @@ const List = styled.ul`
   padding-left: 0;
 `;
 
+// Component to display todolist, also wraps Filter component
 const TodoList = ({ todos, filter }) => {
-  if (todos.length === 0 && filter === FILTER_ALL)
-    return (
-      <div className="row flex-center margin-top-large">Nothing to display</div>
-    );
+  // Display message if no todos
+  let message;
+  if (todos.length === 0) {
+    let text;
+    switch (filter) {
+      case FILTER_COMPLETED:
+        text = "Nothing completed yet.";
+        break;
+      case FILTER_ACTIVE:
+        text = "Nothing to be completed.";
+        break;
+      default:
+        text = "No todos yet :)";
+        break;
+    }
+    message = <div className="row flex-center margin-top-large">{text}</div>;
+  }
 
   return (
     <div>
+      {message}
       <List className="child-borders">
         {todos.map((todo) => (
           <Todo className="row" key={todo.id} {...todo} />
         ))}
       </List>
-      <Filter />
+      <Filter todosLength={todos.length} filter={filter} />
     </div>
   );
 };
